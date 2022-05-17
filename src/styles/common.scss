@@ -1,0 +1,45 @@
+@import "./variables.scss";
+
+.action-cursor {
+  cursor: pointer;
+}
+
+.action-not-allow {
+  color: #c0c4cc !important;
+  background-color: #fff;
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.bkg-fade {
+  background-color: $fade !important;
+}
+
+.bkg-white {
+  background-color: white !important;
+}
+
+
+.color-fade {
+  color: $fade;
+}
+
+.color-fade1 {
+  color: $fade1;
+}
+
+.color-fade2 {
+  color: $fade2;
+}
+
+.border-solid-normal {
+  border: 1px solid $borderColorNormal;
+}
+
+.border-solid-fade {
+  border: 1px solid $fade;
+}
+
+.border-bottom-solid-normal {
+  border-bottom: 1px solid $borderColorLight;
+}

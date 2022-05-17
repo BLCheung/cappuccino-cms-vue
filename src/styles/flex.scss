@@ -1,0 +1,83 @@
+@mixin base-flex {
+  display: flex !important;
+  box-sizing: border-box;
+}
+
+.flex-item {
+  @include base-flex();
+  flex: 1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-row {
+  @include base-flex();
+  flex-direction: row;
+}
+
+.flex-column {
+  @include base-flex();
+  flex-direction: column;
+}
+
+.flex-center {
+  @include base-flex();
+  align-items: center;
+  justify-content: center;
+}
+
+/************** 主轴布局 ***************/
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-justify-around {
+  justify-content: space-around;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.flex-justify-start {
+  justify-content: flex-start;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+/************** 副轴布局 ***************/
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.flex-align-end {
+  align-items: flex-end;
+}
+
+/************** item ***************/
+.flex-align-self-start {
+  align-self: flex-start;
+}
+
+.flex-align-self-end {
+  align-self: flex-end;
+}
+
+
+.flex-row-align-center {
+  @extend .flex-row;
+  @extend .flex-align-center;
+}
+
+.flex-column-align-center {
+  @extend .flex-column;
+  @extend .flex-align-center;
+}
