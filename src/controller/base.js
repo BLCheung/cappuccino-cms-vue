@@ -179,6 +179,7 @@ export default class BaseController {
   $setDialogParams(params = {}, whichDialogData = null) {
     if (CommonUtils.isNull(whichDialogData)) {
       this.DialogData.params = params;
+      return;
     }
     whichDialogData.params = params;
   }
@@ -253,6 +254,11 @@ export default class BaseController {
     }
     dialogData.visible = false;
   }
+  
+  /**
+   * 关闭当前弹窗（适用于当前是MultiDialogData的弹窗）
+   */
+  $closeCurrentDialog() { !!this.VueContext.setDialogVisible && this.VueContext.setDialogVisible(false); }
   
   /**
    * 初始化Vue内部相关实例数据

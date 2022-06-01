@@ -1,11 +1,35 @@
+$dialog-normal-max-height: 70vh;
+$dialog-large-width: 95vw;
+$dialog-large-height: 95vh;
+
+$dialog-body-header-height: 4vh;
+$dialog-body-footer-height: 60px;
+
 .__dialog-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  .el-dialog__header {
+    padding: 0;
+    z-index: 2;
+  }
+
+  .el-dialog__headerbtn {
+    .el-dialog__close {
+      color: white;
+    }
+  }
+
   .el-dialog__close {
     font-size: 22px;
     font-weight: bold;
+  }
+
+  .title-container {
+    position: relative;
+    height: $dialog-body-header-height;
   }
 }
 
@@ -27,25 +51,43 @@
   }
 
   .dialog-body {
-    //min-height: 50vh;
-    max-height: 70vh;
+    max-height: $dialog-normal-max-height - $dialog-body-header-height;
     overflow-y: auto;
     overflow-x: hidden;
     //padding: 20px 20px 0 20px;
+  }
+
+  .dialog-body-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: $dialog-body-footer-height;
+    border-top: 0.5px solid #eeeeee;
+  }
+
+  .dialog-body-footer--left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: $dialog-body-footer-height;
   }
 }
 
 
 .__dialog-large-container {
   justify-content: center;
+
   .el-dialog {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 95% !important;
-    height: 95% !important;
+    width: $dialog-large-width !important;
+    height: $dialog-large-height !important;
     margin: 0 !important;
-    overflow: auto;
+    padding-bottom: $dialog-body-footer-height;
+    overflow: hidden;
   }
 
   .el-dialog__header {
@@ -57,22 +99,20 @@
 
   .el-dialog__body {
     flex: 1;
-    padding: 0 !important
+    padding: 0 !important;
+    overflow: auto;
   }
 
-  .dialog-body {
-    overflow-y: auto;
-    overflow-x: hidden;
+  .dialog-body-footer {
+    position: fixed;
+    left: 2.5vw;
+    bottom: 2.5vh;
+    width: $dialog-large-width;
+    background-color: white;
+    z-index: 3;
+    border-top: 0.5px solid #eeeeee;
   }
 }
 
-.dialog-body {}
-
-.dialog-body-footer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 60px;
-  border-top: 0.5px solid #eeeeee;
+.dialog-body {
 }

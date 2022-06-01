@@ -12,26 +12,30 @@
     :append-to-body="appendToBody"
     destroy-on-close
   >
+    <template v-if="isVisible" #title>
+      <el-row :style="[themeBackgroundStyle]" class="title-container" type="flex" align="middle" justify="center">
+        <span class="title text-size-large color-white">{{ title }}</span>
+      </el-row>
+    </template>
     <!-- 内部的二次插槽要手动进行销毁，否则el-dialog生命周期走完了 内部插槽的组件生命周期依然存在 -->
     <template v-if="isVisible" #default>
       <slot />
     </template>
-    <template v-if="isVisible" #title>
-      <slot name="title" />
-    </template>
-    <template v-if="isVisible" #footer>
-      <slot name="footer" />
-    </template>
+    <!--    <template v-if="isVisible" #footer>-->
+    <!--      <slot name="footer" />-->
+    <!--    </template>-->
   </el-dialog>
 </template>
 
 <script>
 import { BaseData } from '@/common/data';
 import DialogType   from '@/common/enum/dialog-type';
+import ThemeMixin   from '@/mixins/theme';
 
 export default {
-  name:  'cpm-dialog',
-  props: {
+  name:   'cpm-dialog',
+  mixins: [ ThemeMixin ],
+  props:  {
     visible:      { type: Boolean, default: BaseData.DialogData.visible },
     type:         { type: String, default: BaseData.DialogData.type },
     center:       { type: Boolean, default: BaseData.DialogData.center },
@@ -48,6 +52,13 @@ export default {
       DialogType,
     }
   },
+  // 提供给子组件数据（响应式的）
+  provide() {
+    return {
+      dialogParams: () => this.params,
+      setVisible:   (isVisible) => this.isVisible = isVisible,
+    }
+  },
 
   computed: {
     isVisible: {
@@ -60,13 +71,26 @@ export default {
   },
 
   methods: {
-    open() {
-      this.$emit('update:visible', true);
-    },
+    open() { this.$emit('update:visible', true); },
+    close() { this.$emit('update:visible', false); },
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.__dialog-container {
+
+  .title-container {
+
+    .title {
+      max-width: 70%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+    }
+  }
+}
 
 </style>

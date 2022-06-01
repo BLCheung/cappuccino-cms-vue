@@ -47,7 +47,8 @@ const BaseMixin = {
             done();
           }
         },
-      });
+      })
+                 .catch(reason => {});
     },
     
     _$emitAction(action = BaseActions.ACTION, data = {}) { this.$emit(action, data); },

@@ -1,22 +1,19 @@
-import CommonUtils from '@/utils/common';
-
 const DialogMixin = {
-  props: {
-    params: {
-      type: Object,
-      default() { return {}; },
-    },
-  },
   data() {
     return {}
   },
+  inject: [ 'dialogParams', 'setVisible' ],
   
   methods: {
     getDialogParams() {
-      let newParams = {};
+      // let newParams = {};
       // 深拷贝，为了解除引用共享
-      CommonUtils.deepClone(this.params, newParams);
-      return newParams;
+      // CommonUtils.deepClone(this.params, newParams);
+      return this.dialogParams();
+    },
+    
+    setDialogVisible(isVisible) {
+      this.setVisible(isVisible);
     },
   },
 }
