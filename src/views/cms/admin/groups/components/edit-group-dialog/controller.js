@@ -14,7 +14,6 @@ export default class CMSAdminEditGroupDialogController extends BaseController {
   constructor(context) {
     super(context);
     CommonUtils.copy(this.$getDialogParams(), this._groupInfo);
-    
     this.groupId   = this._groupInfo.id;
     this.FormRules = new UpdateGroupRules(context, this.FormData);
     
@@ -55,7 +54,7 @@ export default class CMSAdminEditGroupDialogController extends BaseController {
     Message.success('修改成功！');
     this.$setSubmitLoading(false);
     this.$setSubmitDisabled(false);
-    this.onDispatchCloseAction();
+    this.$closeCurrentDialog();
     this.onDispatchUpdateAction(this.FormData.toDTO());
   }
 }

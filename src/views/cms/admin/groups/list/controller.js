@@ -3,13 +3,14 @@ import AdminModel       from '@/models/cms/admin';
 import CommonUtils      from '@/utils/common';
 import GroupEntity      from '@/beans/cms/group';
 import UserLevel        from '@/common/enum/user-level';
+import DialogType       from '@/common/enum/dialog-type';
 
 export default class CMSAdminGroupsController extends PagingController {
   
   _groupList = [];
   
   groupInfoDialog       = { title: '分组信息' };
-  groupPermissionDialog = { title: '分配权限', width: '85%' };
+  groupPermissionDialog = { title: '分配权限', type: DialogType.Large };
   
   constructor(context) {
     super(context);
@@ -57,9 +58,9 @@ export default class CMSAdminGroupsController extends PagingController {
       async () => await this.deleteGroup(id));
   }
   
-  onGroupDispatch(id) {
-    const params = { groupId: id };
-    this.$setDialogParams(params, this.groupPermissionDialog);
+  onGroupDispatch(row) {
+    this.groupPermissionDialog.title = row.name;
+    this.$setDialogParams(row, this.groupPermissionDialog);
     this.$openDialog(this.groupPermissionDialog);
   }
   

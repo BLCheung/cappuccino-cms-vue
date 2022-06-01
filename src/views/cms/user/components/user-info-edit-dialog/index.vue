@@ -1,7 +1,7 @@
 <template>
   <el-container v-loading="PageData.detailLoading" class="page-container dialog-body flex-column view-full">
-    <el-main class="user-info-edit-container top-gap">
-      <el-form :ref="ViewRef.form" :model="FormData" :rules="FormRules" label-width="80px">
+    <el-main class="user-info-edit-container">
+      <el-form class="form" :ref="ViewRef.form" :model="FormData" :rules="FormRules" label-width="80px">
         <el-col :xs="24" :md="16">
           <el-form-item label="用户名" prop="username" required>
             <el-input v-model="FormData.username" />
@@ -31,15 +31,17 @@
 
 <script>
 import UserInfoEditDialogController from './controller';
-import BaseMixin              from '@/mixins/base';
+import BaseMixin                    from '@/mixins/base';
+import CpmDialog                    from '@/components/cpm-dialog/cpm-dialog';
+import DialogMixin                  from '@/mixins/dialog';
 
 export default {
   name:       'user-info-edit-dialog',
-  mixins:     [ BaseMixin ],
+  components: { CpmDialog },
+  mixins:     [ BaseMixin, DialogMixin ],
   data() {
     return {}
   },
-  controller: null,
 
   created() { this.initData(); },
 
@@ -66,9 +68,6 @@ export default {
 
 .user-info-edit-container {
 
-  .test {
-    height: 300px;
-  }
 }
 
 </style>

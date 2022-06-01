@@ -38,7 +38,7 @@
         <el-table-column label="操作" fixed="right">
           <template slot-scope="{row}">
             <el-button plain type="info" size="small" @click="onGroupEdit(row)">编辑</el-button>
-            <el-button plain type="primary" size="small" @click="onGroupDispatch(row.id)">权限</el-button>
+            <el-button plain type="primary" size="small" @click="onGroupDispatch(row)">权限</el-button>
             <el-button type="danger" size="small" @click="onGroupDelete(row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -48,15 +48,11 @@
     <el-footer class="page-main-container"></el-footer>
 
     <cpm-dialog v-bind.sync="MultiDialogData.groupInfoDialog">
-      <edit-group-dialog
-        :params="MultiDialogData.groupInfoDialog.params"
-        @action-update="onGroupInfoUpdate"
-        @action-close="onClose"
-      />
+      <edit-group-dialog @action-update="onGroupInfoUpdate" />
     </cpm-dialog>
 
     <cpm-dialog v-bind.sync="MultiDialogData.groupPermissionDialog">
-      <edit-group-permission-dialog :params="MultiDialogData.groupPermissionDialog.params" />
+      <edit-group-permission-dialog />
     </cpm-dialog>
   </el-container>
 </template>
@@ -99,7 +95,6 @@ export default {
 
     onGroupInfoUpdate() {},
 
-    onClose() { this.controller.$closeDialog(); },
   },
 }
 </script>
@@ -107,6 +102,10 @@ export default {
 <style lang="scss" scoped>
 
 .cms-admin-groups-container {
+
+  .page-main-container {
+    padding: 0 20px;
+  }
 }
 
 </style>

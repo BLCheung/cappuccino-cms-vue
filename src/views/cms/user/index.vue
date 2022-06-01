@@ -136,6 +136,10 @@ export default {
 
 .cms-user-container {
 
+  .page-main-container {
+    padding: 0 20px !important;
+  }
+
   .cms-user-password-confirm {
     height: 60px;
 

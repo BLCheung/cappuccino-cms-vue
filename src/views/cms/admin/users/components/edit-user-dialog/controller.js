@@ -12,6 +12,7 @@ export default class CMSAdminEditUserDialogController extends BaseController {
   
   constructor(context) {
     super(context);
+    console.log('dialogParams:', this.$getDialogParams());
     const { user, groups } = this.$getDialogParams();
     this.user              = user;
     this.allGroups         = groups;

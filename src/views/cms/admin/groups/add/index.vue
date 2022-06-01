@@ -80,4 +80,8 @@ export default {
 
 <style lang="scss" scoped>
 
+.page-main-container {
+  padding: 0 20px;
+}
+
 </style>

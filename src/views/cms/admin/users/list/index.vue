@@ -61,7 +61,7 @@
     </el-footer>
 
     <cpm-dialog v-bind.sync="DialogData">
-      <edit-user-dialog :params="DialogData.params" @action-update="onUpdate" @action-close="onClose" />
+      <edit-user-dialog @action-update="onUpdate" @action-close="onClose" />
     </cpm-dialog>
   </el-container>
 </template>
@@ -113,7 +113,6 @@ export default {
 .cms-admin-users-container {
 
   .user-table {
-    margin-top: 20px;
   }
 }
 

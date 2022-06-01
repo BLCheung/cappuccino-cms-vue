@@ -1,37 +1,41 @@
 <template>
-  <el-container class="page-container dialog-body edit-user">
+  <el-container class="page-container dialog-body edit-user-container">
     <el-main class="page-main-container">
       <el-tabs v-model="currentTabs">
         <el-tab-pane label="分配分组" name="1">
-          <el-main class="page-main-container">
-            <el-row>
-              <el-col :lg="16" :md="20" :sm="24" :xs="24">
-                <el-form :model="ViewData.user" label-position="right" label-width="80px">
-                  <el-form-item label="用户名">
-                    <el-input disabled v-model="ViewData.user.username" />
-                  </el-form-item>
-                  <el-form-item label="昵称">
-                    <el-input disabled v-model="ViewData.user.nickname" />
-                  </el-form-item>
-                  <el-form-item label="邮箱">
-                    <el-input disabled v-model="ViewData.user.email" />
-                  </el-form-item>
-                  <el-form-item label="分组">
-                    <el-checkbox-group
-                      v-model="ViewData.checkGroupIds"
-                      size="small"
-                      style="transform: translateY(5px)"
+          <el-row>
+            <el-col :lg="16" :md="20" :sm="24" :xs="24">
+              <el-form :model="ViewData.user" label-position="right" label-width="80px">
+                <el-form-item label="用户名">
+                  <el-input disabled v-model="ViewData.user.username" />
+                </el-form-item>
+                <el-form-item label="昵称">
+                  <el-input disabled v-model="ViewData.user.nickname" />
+                </el-form-item>
+                <el-form-item label="邮箱">
+                  <el-input disabled v-model="ViewData.user.email" />
+                </el-form-item>
+                <el-form-item label="分组">
+                  <el-checkbox-group
+                    v-model="ViewData.checkGroupIds"
+                    size="small"
+                    style="transform: translateY(5px)"
+                  >
+                    <el-checkbox
+                      class="group-checkbox"
+                      v-for="(group, index) of ViewData.allGroups"
+                      :key="index"
+                      :label="group.id"
+                      border
                     >
-                      <el-checkbox class="group-checkbox" v-for="(group, index) of ViewData.allGroups" :key="index" :label="group.id" border>
-                        {{ group.name }}
-                      </el-checkbox>
-                    </el-checkbox-group>
-                  </el-form-item>
-                </el-form>
-              </el-col>
-            </el-row>
-          </el-main>
-          <el-footer class="dialog-body-footer">
+                      {{ group.name }}
+                    </el-checkbox>
+                  </el-checkbox-group>
+                </el-form-item>
+              </el-form>
+            </el-col>
+          </el-row>
+          <el-footer class="dialog-body-footer--left">
             <el-button style="margin-right: 30px" @click="onGroupReset">重 置</el-button>
             <el-button
               type="primary"
@@ -67,7 +71,7 @@
               </el-col>
             </el-row>
           </el-main>
-          <el-footer class="dialog-body-footer">
+          <el-footer class="dialog-body-footer--left">
             <el-button style="margin-right: 30px" @click="onPasswordReset">重 置</el-button>
             <el-button
               type="primary"
@@ -123,11 +127,15 @@ export default {
 
 <style lang="scss" scoped>
 
-.edit-user {
+.edit-user-container {
 
   .group-checkbox {
     margin-right: 20px;
     margin-bottom: 20px;
+  }
+
+  .dialog-body-footer {
+    border: none;
   }
 }
 
