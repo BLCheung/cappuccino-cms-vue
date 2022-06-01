@@ -1,32 +1,37 @@
 <template>
   <div class="permission-group flex-column view-width-full">
-    <template v-for="(module, mIndex) of allModules">
-      <div class="modules-container flex-column flex-align-start" :key="mIndex">
-        <el-checkbox-group v-model="checkModuleNames">
-          <el-checkbox
-            class="module"
-            :label="module.module"
-            :indeterminate="isCurrentModuleHalfCheck(module.module)"
-            @change="onModuleCheck($event, mIndex)"
-          />
-        </el-checkbox-group>
+    <template v-if="allModules.length">
+      <template v-for="(module, mIndex) of allModules">
+        <div class="modules-container flex-column flex-align-start" :key="mIndex">
+          <el-checkbox-group v-model="checkModuleNames">
+            <el-checkbox
+              class="module"
+              :label="module.module"
+              :indeterminate="isCurrentModuleHalfCheck(module.module)"
+              @change="onModuleCheck($event, mIndex)"
+            />
+          </el-checkbox-group>
 
-        <el-checkbox-group
-          class="permission-container flex-row flex-wrap flex-justify-between view-width-full bottom-gap"
-          v-model="checkPermissionIds"
-        >
-          <el-checkbox
-            class="permission"
-            v-for="(permission, pIndex) of module.permissions"
-            :key="pIndex"
-            :label="permission.id"
-            :checked="isCurrentPermissionCheck(permission.id)"
-            @change="onPermissionCheck($event, permission.id)"
+          <el-checkbox-group
+            class="permission-container flex-row flex-wrap flex-justify-between view-width-full bottom-gap"
+            v-model="checkPermissionIds"
           >
-            {{ permission.name }}
-          </el-checkbox>
-        </el-checkbox-group>
-      </div>
+            <el-checkbox
+              class="permission"
+              v-for="(permission, pIndex) of module.permissions"
+              :key="pIndex"
+              :label="permission.id"
+              :checked="isCurrentPermissionCheck(permission.id)"
+              @change="onPermissionCheck($event, permission.id)"
+            >
+              {{ permission.name }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </div>
+      </template>
+    </template>
+    <template v-if="!allModules.length">
+      <p class="color-fade text-size-normal">暂无可分配的权限</p>
     </template>
   </div>
 </template>

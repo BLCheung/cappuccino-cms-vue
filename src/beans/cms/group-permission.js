@@ -10,4 +10,8 @@ export default class GroupPermissionEntity extends GroupEntity {
     super(data);
     this.modules = CommonUtils.transformList(data.modules, PermissionModuleEntity);
   }
+  
+  getPermissions() {
+    return this.modules.flatMap(module => module.permissions);
+  }
 }
