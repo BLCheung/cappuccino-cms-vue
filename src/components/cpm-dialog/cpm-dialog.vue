@@ -55,8 +55,8 @@ export default {
   // 提供给子组件数据（响应式的）
   provide() {
     return {
-      dialogParams: () => this.params,
-      setVisible:   (isVisible) => this.isVisible = isVisible,
+      dialogParams:  () => this.params,
+      dialogVisible: (isVisible) => this.isVisible = isVisible,
     }
   },
 

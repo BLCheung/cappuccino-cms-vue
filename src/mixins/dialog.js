@@ -2,7 +2,7 @@ const DialogMixin = {
   data() {
     return {}
   },
-  inject: [ 'dialogParams', 'setVisible' ],
+  inject: [ 'dialogParams', 'dialogVisible' ],
   
   methods: {
     getDialogParams() {
@@ -13,7 +13,7 @@ const DialogMixin = {
     },
     
     setDialogVisible(isVisible) {
-      this.setVisible(isVisible);
+      this.dialogVisible(isVisible);
     },
   },
 }
