@@ -6,7 +6,7 @@ import TokenKit                from '@/kit/token-kit';
 import ResultKit               from '@/kit/result-kit';
 import Api                     from '@/common/api';
 import HttpMethods             from '@/common/enum/http-methods';
-import UserApi                 from '@/api/user';
+import UserApi                 from '@/api/cms/user';
 import Code                    from '@/common/constant/code';
 import router                  from '@/router';
 

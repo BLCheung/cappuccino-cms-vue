@@ -1,4 +1,4 @@
-import UserApi from '@/api/user';
+import UserApi from '@/api/cms/user';
 import HttpKit from '@/kit/http-kit';
 
 export default class UserModel {

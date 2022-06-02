@@ -1,4 +1,4 @@
-import AdminApi from '@/api/admin';
+import AdminApi from '@/api/cms/admin';
 import HttpKit  from '@/kit/http-kit';
 
 export default class AdminModel {
