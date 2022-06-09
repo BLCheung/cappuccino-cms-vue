@@ -117,7 +117,7 @@ export default class BaseController {
   onDispatchCloseAction(data = {}) { this.onDispatchAction(BaseActions.ACTION_CLOSE, data); }
   
   /**
-   * 打开弹窗
+   * 创建弹窗
    * @param dialogData
    */
   onCreateDialog(dialogData = {}) {
