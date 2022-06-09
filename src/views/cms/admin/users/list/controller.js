@@ -3,7 +3,6 @@ import AdminModel       from '@/models/cms/admin';
 import UserGroupEntity  from '@/beans/cms/user-group';
 import CommonUtils      from '@/utils/common';
 import GroupEntity      from '@/beans/cms/group';
-import user             from '@/store/modules/user';
 import { Message }      from 'element-ui';
 
 export default class CMSAdminUserPagingController extends PagingController {

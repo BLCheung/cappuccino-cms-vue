@@ -32,13 +32,11 @@
 <script>
 import UserInfoEditDialogController from './controller';
 import BaseMixin                    from '@/mixins/base';
-import CpmDialog                    from '@/components/cpm-dialog/cpm-dialog';
 import DialogMixin                  from '@/mixins/dialog';
 
 export default {
-  name:       'user-info-edit-dialog',
-  components: { CpmDialog },
-  mixins:     [ BaseMixin, DialogMixin ],
+  name:   'user-info-edit-dialog',
+  mixins: [ BaseMixin, DialogMixin ],
   data() {
     return {}
   },
