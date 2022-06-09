@@ -12,6 +12,7 @@ import ErrorRouter    from '@/router/modules/error';
 import CMSUserRouter  from '@/router/modules/user';
 import CMSAdminRouter from '@/router/modules/admin';
 import UserLevel      from '@/common/enum/user-level';
+import CDataRouter    from '@/router/modules/cdata';
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -45,6 +46,7 @@ export const routes = [
   
   CMSUserRouter,
   CMSAdminRouter,
+  CDataRouter,
   
   {
     path:      '/icon',
