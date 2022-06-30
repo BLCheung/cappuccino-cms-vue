@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const CommonUtils = {};
 
 /**
@@ -151,5 +153,12 @@ CommonUtils.uniqueEntities = (entities = [], entityKey = 'id') => {
   });
   return newItems;
 }
+
+/**
+ * 解析日期为字符串
+ * @param dateStr
+ * @return {string|string} YYYY-MM-DD HH:mm
+ */
+CommonUtils.parseDate2Str = (dateStr = '') => dateStr ? dayjs(dateStr).format('YYYY-MM-DD HH:mm') : '';
 
 export default CommonUtils;
