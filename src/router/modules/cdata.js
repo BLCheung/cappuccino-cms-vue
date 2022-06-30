@@ -22,6 +22,12 @@ const CDataRouter = {
       component: () => import('@/views/cdata/users/list/index'),
       meta:      { title: 'C端用户管理', icon: 'user', level: UserLevel.User, permission: [ '查询所有C端用户' ] },
     },
+    {
+      name:      'CDataOrders',
+      path:      'orders',
+      component: () => import('@/views/cdata/orders/list/index'),
+      meta:      { title: 'C端订单管理', icon: 'el-icon-s-order', level: UserLevel.User, permission: [ '查询所有订单' ] },
+    },
   ],
 }
 
