@@ -65,7 +65,7 @@ export default {
 
     initViewData() { this.controller.onLoad(); },
 
-    onClose() { this.controller.$closeCurrentDialog(); },
+    onClose() { this.closeCurrentDialog(); },
   },
 }
 </script>
