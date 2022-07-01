@@ -128,6 +128,13 @@ export default class PagingController extends BaseController {
   $updatePagingSearch() { this.VueContext.PagingSearch = this.PagingSearch; }
   
   /**
+   * 通过id获取指定条目
+   * @param id
+   * @return {*}
+   */
+  $getItemById(id) { return this.TableData.list.find(item => this.$isSameItem(id, item)); }
+  
+  /**
    * 通过id更新条目
    * @param id
    * @param newItem
