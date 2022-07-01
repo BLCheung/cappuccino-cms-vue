@@ -119,7 +119,7 @@ export default {
 
     initViewData() { this.controller.onLoad(); },
 
-    onUpdateStatus() { this.closeCurrentDialog(); },
+    onUpdateStatus() {},
 
 
     _parseOrderStatus(status) {
