@@ -1,7 +1,6 @@
 import PagingController from '@/controller/page';
 import OrderModel       from '@/models/order';
 import OrderEntity      from '@/beans/order';
-import OrderStatus      from '@/common/enum/order-status';
 import DialogType       from '@/common/enum/dialog-type';
 import CommonUtils      from '@/utils/common';
 import { Message }      from 'element-ui';
@@ -23,38 +22,10 @@ export default class CDataOrdersPagingController extends PagingController {
     }
     
     this.bindData2Vue()
-        .bindMethod2Vue([ 'onKeywordSearch', 'onOrderEdit', 'onOrderDelete' ]);
+        .bindMethod2Vue([ 'onKeywordSearch', 'onOrderEdit', 'onOrderDelete', 'onOrderUpdate' ]);
   }
   
   async onLoad() { await this.$startPaging(true); }
-  
-  onTableRowItemInit({ row, rowIndex }) {
-    const { status } = row;
-    switch (status) {
-      case OrderStatus.EXPIRED:
-        row.tagType = 'danger';
-        break;
-      case OrderStatus.UNPAID:
-        row.tagType = 'warning';
-        break;
-      case OrderStatus.PAID:
-        row.tagType = 'success';
-        break;
-      case OrderStatus.DELIVERED:
-        row.tagType = '';
-        break;
-      case OrderStatus.FINISHED:
-        row.tagType = 'info';
-        break;
-      case OrderStatus.CANCELED:
-        row.tagType = 'info';
-        break;
-      
-      default:
-        row.tagType = 'danger';
-        break;
-    }
-  }
   
   async onKeywordSearch() {
     this.PagingSearch.keyword   = this.ViewData.oldKeyword;
@@ -73,8 +44,15 @@ export default class CDataOrdersPagingController extends PagingController {
   
   onOrderDelete(id) { Message.warning('暂不支持删除C端用户的订单！'); }
   
-  onPagingQueryChange({ page, limit }) {
+  onOrderUpdate(data) {
+    const { id, status }     = data;
+    const currentOrderEntity = this.$getItemById(id);
+    currentOrderEntity.updateStatus(status);
+  }
+  
+  async onPagingQueryChange({ page, limit }) {
     this.PagingQuery.page  = page;
     this.PagingQuery.limit = limit;
+    await this.$startPaging();
   }
 }

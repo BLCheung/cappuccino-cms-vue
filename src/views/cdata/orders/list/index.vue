@@ -32,16 +32,25 @@
         v-loading="TableData.loading"
         :data="TableData.list"
         :header-cell-style="themeTableHeader"
-        :row-class-name="onTableRowClassName"
       >
-        <el-table-column prop="id" width="100px" label="订单id" fixed="left" />
+        <el-table-column prop="id" label="订单id" width="70px" fixed="left" />
+        <el-table-column prop="snapImg" label="图片" width="100px">
+          <template slot-scope="{row}">
+            <el-image
+              style="width: 80px; height: 80px;"
+              fit="cover"
+              :src="row.img"
+              :preview-src-list="[row.img]"
+            />
+          </template>
+        </el-table-column>
         <el-table-column prop="orderNo" label="订单号" width="230px" />
-        <el-table-column prop="snapTitle" label="订单标题" width="230px" />
-        <el-table-column prop="totalCount" label="商品总数量" />
+        <el-table-column prop="snapTitle" label="订单标题" />
+        <el-table-column prop="totalCount" label="商品总数量" width="100px" />
         <el-table-column prop="totalPrice" label="商品总价" />
         <el-table-column prop="statusStr" label="状态" width="150px">
           <template slot-scope="{row}">
-            <el-tag :type="row.tagType">{{ row.statusStr }}</el-tag>
+            <el-tag :type="parseOrderStatusTag(row.status)">{{ row.statusStr }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="180px" fixed="right">
@@ -53,8 +62,19 @@
       </el-table>
     </el-main>
 
+    <el-footer class="page-footer-container flex-row-align-center flex-justify-end view-width-full">
+      <el-row>
+        <cpm-pagination
+          :page="PagingQuery.page"
+          :limit="PagingQuery.limit"
+          :total="TableData.total"
+          @pagination="onPaginationChange"
+        />
+      </el-row>
+    </el-footer>
+
     <cpm-dialog v-bind.sync="DialogData">
-      <edit-order-dialog />
+      <edit-order-dialog @action-update="onOrderUpdate" />
     </cpm-dialog>
   </el-container>
 </template>
@@ -63,23 +83,25 @@
 import PagingMixin                 from '@/mixins/paging';
 import ThemeMixin                  from '@/mixins/theme';
 import CDataOrdersPagingController from './controller';
+import CpmPagination               from '@/components/cpm-pagination/cpm-pagination';
 import CpmDialog                   from '@/components/cpm-dialog/cpm-dialog';
 import EditOrderDialog             from '@/views/cdata/orders/components/edit-order-dialog/index';
+import OrderStatus                 from '@/common/enum/order-status';
 
 export default {
-  components: { CpmDialog, EditOrderDialog },
+  components: { CpmPagination, CpmDialog, EditOrderDialog },
   mixins:     [ PagingMixin, ThemeMixin ],
   data() {
     return {};
   },
 
-  created() {
-    this.initData();
+  computed: {
+    parseOrderStatusTag() { return this._parseOrderStatus; },
   },
 
-  mounted() {
-    this.initViewData();
-  },
+  created() { this.initData(); },
+
+  mounted() { this.initViewData(); },
 
   methods: {
     initData() { this.controller = new CDataOrdersPagingController(this); },
@@ -91,6 +113,37 @@ export default {
     onOrderEdit(row) {},
 
     onOrderDelete(id) {},
+
+    onOrderUpdate(data) {},
+
+    _parseOrderStatus(status) {
+      let type = '';
+      switch (status) {
+        case OrderStatus.EXPIRED:
+          type = 'danger';
+          break;
+        case OrderStatus.UNPAID:
+          type = 'warning';
+          break;
+        case OrderStatus.PAID:
+          type = 'success';
+          break;
+        case OrderStatus.DELIVERED:
+          type = '';
+          break;
+        case OrderStatus.FINISHED:
+          type = 'info';
+          break;
+        case OrderStatus.CANCELED:
+          type = 'info';
+          break;
+
+        default:
+          type = 'danger';
+          break;
+      }
+      return type;
+    },
   },
 }
 </script>

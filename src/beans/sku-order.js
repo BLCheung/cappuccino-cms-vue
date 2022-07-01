@@ -18,8 +18,16 @@ export default class SkuOrderEntity {
   img        = '';
   // 规格值数组（[ 黑色, 128G ]）
   specValues = [];
+  specStr    = '';
   
   constructor(item) {
     CommonUtils.copy(item, this);
+    this._parseSpecStr();
+  }
+  
+  _parseSpecStr() {
+    if (this.specValues && this.specValues.length) {
+      this.specStr = this.specValues.join(' · ');
+    }
   }
 }

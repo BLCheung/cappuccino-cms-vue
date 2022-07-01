@@ -23,6 +23,7 @@ export default class OrderEntity {
   
   constructor(item) {
     CommonUtils.copy(item, this);
+    this._parseDate();
     this._checkExpired();
     this._parseStatusStr();
   }
@@ -35,6 +36,13 @@ export default class OrderEntity {
   _checkExpired() {
     const isExpired = dayjs().isAfter(dayjs(this.expiredTime));
     if (isExpired) this.status = OrderStatus.EXPIRED;
+  }
+  
+  _parseDate() {
+    this.createTime = CommonUtils.parseDate2Str(this.createTime);
+    this.placedTime   = CommonUtils.parseDate2Str(this.placedTime);
+    this.payTime   = CommonUtils.parseDate2Str(this.payTime);
+    this.expiredTime   = CommonUtils.parseDate2Str(this.expiredTime);
   }
   
   _parseStatusStr() {

@@ -32,6 +32,29 @@
             <el-form-item label="当前状态" prop="statusStr">
               <el-tag :type="parseOrderStatusTag(ViewData.order.status)">{{ ViewData.order.statusStr }}</el-tag>
             </el-form-item>
+            <el-form-item label="收货地址" prop="snapAddress">
+              <span class="text-size-normal">{{ ViewData.order.snapAddress || '暂无数据' }}</span>
+            </el-form-item>
+            <el-form-item label="详情" prop="snapItems">
+              <el-table :data="ViewData.order.snapItems" stripe :header-cell-style="themeTableHeader">
+                <el-table-column prop="id" label="规格id" width="70px" fixed="left" />
+                <el-table-column prop="img" label="图片" width="100px">
+                  <template slot-scope="{row}">
+                    <el-image
+                      style="width: 80px; height: 80px;"
+                      fit="cover"
+                      :src="row.img"
+                      :preview-src-list="[row.img]"
+                    />
+                  </template>
+                </el-table-column>
+                <el-table-column prop="title" label="标题" />
+                <el-table-column prop="specStr" label="规格" />
+                <el-table-column prop="price" label="单价" />
+                <el-table-column prop="totalPrice" label="总价" />
+                <el-table-column prop="count" label="数量" width="70px" />
+              </el-table>
+            </el-form-item>
           </el-form>
         </el-col>
       </el-row>
@@ -42,8 +65,9 @@
       <el-button
         type="primary"
         size="large"
-        :disabled="parseActionDisabled"
-        @click="onClose"
+        :loading="PageData.submitLoading"
+        :disabled="PageData.submitDisabled"
+        @click="onUpdateStatus"
       >{{ parseActionName }}
       </el-button>
     </el-footer>
@@ -66,9 +90,7 @@ export default {
   },
 
   computed: {
-    parseOrderStatusTag() {
-      return this._parseOrderStatus;
-    },
+    parseOrderStatusTag() { return this._parseOrderStatus; },
 
     parseActionName() {
       const status = this.ViewData.order.status;
@@ -86,30 +108,18 @@ export default {
         return '不可操作';
       }
     },
-
-    parseActionDisabled() {
-      const status = this.ViewData.order.status;
-      if (!status) return true;
-      return !(status === OrderStatus.PAID || status === OrderStatus.DELIVERED);
-    },
   },
 
-  created() {
-    this.initData();
-  },
+  created() { this.initData(); },
 
-  mounted() {
-    this.initViewData();
-  },
+  mounted() { this.initViewData(); },
 
   methods: {
-    initData() {
-      this.controller = new OrderEditDialogController(this);
-    },
+    initData() { this.controller = new OrderEditDialogController(this); },
 
     initViewData() { this.controller.onLoad(); },
 
-    onClose() { this.controller.$closeCurrentDialog(); },
+    onUpdateStatus() { this.closeCurrentDialog(); },
 
 
     _parseOrderStatus(status) {
