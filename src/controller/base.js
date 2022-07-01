@@ -256,9 +256,9 @@ export default class BaseController {
   }
   
   /**
-   * 关闭当前弹窗（适用于当前是MultiDialogData的弹窗）
+   * 关闭当前弹窗（当前必须是弹窗组件所包裹的插槽组件才能关闭）
    */
-  $closeCurrentDialog() { !!this.VueContext.setDialogVisible && this.VueContext.setDialogVisible(false); }
+  $closeCurrentDialog() { !!this.VueContext.closeCurrentDialog && this.VueContext.closeCurrentDialog(); }
   
   /**
    * 初始化Vue内部相关实例数据
